@@ -1,0 +1,496 @@
+int contador=0;
+color gris =color(190, 190, 190);
+color c;
+int nivel=1;
+
+/*TRIANGULO 1*/
+float triangulo1X, triangulo1Y;
+float angulot1=0.0;
+boolean enTriangulo1=false;
+boolean locked1=false;
+float x1Off= 0.0;
+float y1Off= 0.0;
+
+/*TRIANGULO 2 */
+float triangulo2X, triangulo2Y;
+float angulot2=0.0;
+boolean enTriangulo2=false;
+boolean locked2=false;
+float x2Off= 0.0;
+float y2Off= 0.0;
+
+/*TRIANGULO 3*/ 
+float triangulo3X, triangulo3Y;
+float angulot3=0.0;
+boolean enTriangulo3=false;
+boolean locked3=false;
+float x3Off= 0.0;
+float y3Off= 0.0;
+
+/*TRIANGULO 4*/
+float triangulo4X, triangulo4Y;
+float angulot4=0.0;
+boolean enTriangulo4=false;
+boolean locked4=false;
+float x4Off= 0.0;
+float y4Off= 0.0;
+
+/*TRIANGULO 5*/
+float triangulo5X, triangulo5Y;
+float angulot5=0.0;
+boolean enTriangulo5=false;
+boolean locked5=false;
+float x5Off= 0.0;
+float y5Off= 0.0;
+
+/*CUADRADO*/ 
+float cuadradoX, cuadradoY;
+float anguloc=0.0;
+boolean enCuadrado=false;
+boolean locked6=false;
+float x6Off= 0.0;
+float y6Off= 0.0;
+
+/*PARALELOGRAMO*/
+float paraleX, paraleY;
+float angulop=0.0;
+boolean enParalelo=false;
+boolean locked7=false;
+float x7Off= 0.0;
+float y7Off= 0.0;
+int a=1;
+
+void setup() {
+  size(500, 500); 
+  noStroke();
+
+}
+
+
+void draw() { 
+  loadPixels();
+  background(250);
+  fill(0);
+  textSize(14);
+  text("Mover: Click y Arrastrar. Girar: Flechas del Teclado", 30, 450);
+  text("Voltear Paralelogramo: Tecla 'F'. Comprobar solución: Tecla 'C'", 30, 466);
+  text("Reset: Tecla 'R'", 30, 480);
+   fill(190); 
+   
+   switch(nivel){      
+     case 1: 
+     rect(100, 100, 300, 300);
+     break;
+     case 2:
+     triangle(10, 200, 160, 50, 160, 350);
+     rect(160, 94, 318, 212);  
+     break;
+     case 3:
+     triangle(38, 315, 250, 103, 462, 315);
+     rect(91, 315, 318, 106);
+     quad(97, 256, 171, 256, 171, 30, 97, 106);
+     break;
+     case 4: 
+     background(0, 0, 150);
+     textSize(50);
+     text("¡GANASTE!", 175, 200);
+     noLoop();
+   }
+
+   
+  drawTriangle1();
+  drawTriangle2();
+  drawTriangle3();
+  drawTriangle4();
+  drawTriangle5();
+  drawCuadrado();
+  drawParalelo();
+
+}
+
+void reset(){
+  contador=0;
+  triangulo1X=0; triangulo1Y=0;
+angulot1=0.0;
+enTriangulo1=false;
+locked1=false;
+x1Off= 0.0;
+y1Off= 0.0;
+
+triangulo2X=0; triangulo2Y=0;
+ angulot2=0.0;
+ enTriangulo2=false;
+locked2=false;
+x2Off= 0.0;
+y2Off= 0.0;
+
+triangulo3X=0; triangulo3Y=0;
+angulot3=0.0;
+enTriangulo3=false;
+locked3=false;
+x3Off= 0.0;
+y3Off= 0.0;
+
+
+triangulo4X=0; triangulo4Y=0;
+angulot4=0.0;
+enTriangulo4=false;
+locked4=false;
+x4Off= 0.0;
+y4Off= 0.0;
+
+triangulo5X=0; triangulo5Y=0;
+angulot5=0.0;
+ enTriangulo5=false;
+locked5=false;
+x5Off= 0.0;
+y5Off= 0.0;
+cuadradoX=0; cuadradoY=0;
+anguloc=0.0;
+enCuadrado=false;
+locked6=false;
+x6Off= 0.0;
+y6Off= 0.0;
+
+
+ paraleX=0; paraleY=0;
+ angulop=0.0;
+ enParalelo=false;
+locked7=false;
+x7Off= 0.0;
+y7Off= 0.0;
+a=1;
+}
+
+
+
+
+
+void keyPressed() {
+  if(keyCode == 'F'){
+  a=a*-1;
+  }
+  else if(keyCode =='R') {
+  reset();
+  }
+  else if(keyCode == 'C'){
+    contador=0;
+   for(int i=0; i<250000;i++) {
+    
+   c= pixels[i];
+   
+   if(c == color(190)){
+   contador++;
+ }  
+  }
+  if((contador>0) && (contador<1000)){
+    nivel=nivel+1;
+    reset();
+ } 
+  println(contador);
+  }
+  
+  
+  if(enTriangulo1){
+ if(keyCode == RIGHT) { 
+         angulot1= angulot1+5;
+        }
+         else if(keyCode == LEFT) {
+        angulot1=angulot1-5;
+  
+     } 
+  }
+  else if(enTriangulo2){
+ if(keyCode == RIGHT) { 
+         angulot2= angulot2+5;
+        }
+         else if(keyCode == LEFT) {
+        angulot2=angulot2-5;
+  
+     } 
+  }
+  else if(enTriangulo3) {
+   if(keyCode == RIGHT) { 
+         angulot3= angulot3+5;
+        }
+         else if(keyCode == LEFT) {
+        angulot3=angulot3-5;
+     } 
+  }
+  else if(enTriangulo4) {
+   if(keyCode == RIGHT) { 
+         angulot4= angulot4+5;
+        }
+         else if(keyCode == LEFT) {
+        angulot4=angulot4-5;
+     }
+  }
+  else if(enTriangulo5) {
+   if(keyCode == RIGHT) { 
+         angulot5= angulot5+5;
+        }
+         else if(keyCode == LEFT) {
+        angulot5=angulot5-5;
+     } 
+  }
+  else if(enCuadrado) {
+   if(keyCode == RIGHT) { 
+         anguloc= anguloc+5;
+        }
+         else if(keyCode == LEFT) {
+        anguloc=anguloc-5;
+     } 
+  }
+  else if(enParalelo) {
+   if(keyCode == RIGHT) { 
+         angulop= angulop+5;
+        }
+         else if(keyCode == LEFT) {
+        angulop=angulop-5;
+     } 
+  }
+  
+  
+}
+
+void drawTriangle1() {
+  pushMatrix();
+  translate(triangulo1X,triangulo1Y);
+  rotate(radians(angulot1));
+   fill(247, 115, 0);
+   triangle(0, 0, 150, 150,  300, 0);
+  popMatrix();
+}
+
+void drawTriangle2(){
+  pushMatrix();
+  translate(triangulo2X,triangulo2Y);
+  rotate(radians(angulot2));
+   fill(0, 165, 11);
+   triangle(0, 0, 150, 150,  0, 300);
+  popMatrix();
+}
+void drawTriangle3(){
+  pushMatrix();
+  translate(triangulo3X,triangulo3Y);
+  rotate(radians(angulot3));
+   fill(107, 34, 5);
+   triangle(0, 0, 75, 75,  150, 0);
+  popMatrix();
+}
+void drawTriangle4(){
+  pushMatrix();
+  translate(triangulo4X,triangulo4Y);
+  rotate(radians(angulot4));
+   fill(2, 95, 255);
+   triangle(0, 0, 75, 75,  150, 0);
+  popMatrix();
+}
+void drawTriangle5(){
+  pushMatrix();
+  translate(triangulo5X,triangulo5Y);
+  rotate(radians(angulot5));
+   fill(247, 0, 0);
+   triangle(0, 0, 150, 0,  0, 150);
+  popMatrix();
+}
+
+void drawCuadrado(){
+  pushMatrix();
+  translate(cuadradoX,cuadradoY);
+  rotate(radians(anguloc));
+   fill(255, 233, 0);
+   rect(0, 0, 107, 107);
+  popMatrix();
+}
+void drawParalelo(){
+  pushMatrix();
+  translate(paraleX,paraleY);
+  scale(1, a);
+  rotate(radians(angulop));
+   fill(0, 255, 187);
+  quad(0, 0, 150, 0,  225, 75, 75, 75 );
+  popMatrix();
+}
+ 
+void mousePressed(){
+    if(color(247, 115, 0)== get(mouseX, mouseY)){
+     enTriangulo1=true;
+    }
+  else{
+    enTriangulo1=false;
+  }
+  
+  if(enTriangulo1) {
+    locked1=true;}
+    else{
+      locked1=false;
+    }
+    x1Off = mouseX-triangulo1X;
+    y1Off = mouseY-triangulo1Y;
+    
+ if(color(0, 165, 11)== get(mouseX, mouseY)){
+     enTriangulo2=true;
+    }
+  else{
+    enTriangulo2=false;
+  }
+  
+  if(enTriangulo2) {
+    locked2=true;}
+    else{
+      locked2=false;
+    }
+    x2Off = mouseX-triangulo2X;
+    y2Off = mouseY-triangulo2Y;
+    
+    if(color(107, 34, 5)== get(mouseX, mouseY)){
+     enTriangulo3=true;
+    }
+  else{
+    enTriangulo3=false;
+  }
+  
+  if(enTriangulo3) {
+    locked3=true;}
+    else{
+      locked3=false;
+    }
+    x3Off = mouseX-triangulo3X;
+    y3Off = mouseY-triangulo3Y;
+    
+    if(color(2, 95, 255)== get(mouseX, mouseY)){
+     enTriangulo4=true;
+    }
+  else{
+    enTriangulo4=false;
+  }
+  
+  if(enTriangulo4) {
+    locked4=true;}
+    else{
+      locked4=false;
+    }
+    x4Off = mouseX-triangulo4X;
+    y4Off = mouseY-triangulo4Y;
+    
+     if(color(247, 0, 0)== get(mouseX, mouseY)){
+     enTriangulo5=true;
+    }
+  else{
+    enTriangulo5=false;
+  }
+  
+  if(enTriangulo5) {
+    locked5=true;}
+    else{
+      locked5=false;
+    }
+    x5Off = mouseX-triangulo5X;
+    y5Off = mouseY-triangulo5Y;
+    
+    
+     if(color(2, 95, 255)== get(mouseX, mouseY)){
+     enTriangulo4=true;
+    }
+  else{
+    enTriangulo4=false;
+  }
+  
+  if(enTriangulo4) {
+    locked4=true;}
+    else{
+      locked4=false;
+    }
+    x4Off = mouseX-triangulo4X;
+    y4Off = mouseY-triangulo4Y;
+    
+     if(color(247, 0, 0)== get(mouseX, mouseY)){
+     enTriangulo5=true;
+    }
+  else{
+    enTriangulo5=false;
+  }
+  
+  if(enTriangulo5) {
+    locked5=true;}
+    else{
+      locked5=false;
+    }
+    x5Off = mouseX-triangulo5X;
+    y5Off = mouseY-triangulo5Y;
+    
+    
+     if(color(255, 233, 0)== get(mouseX, mouseY)){
+     enCuadrado=true;
+    }
+  else{
+    enCuadrado=false;
+  }
+  
+  if(enCuadrado) {
+    locked6=true;}
+    else{
+      locked6=false;
+    }
+    x6Off = mouseX-cuadradoX;
+    y6Off = mouseY-cuadradoY;
+    
+     if(color(0, 255, 187)== get(mouseX, mouseY)){
+     enParalelo=true;
+    }
+  else{
+    enParalelo=false;
+  }
+  
+  if(enParalelo) {
+    locked7=true;}
+    else{
+      locked7=false;
+    }
+    x7Off = mouseX-paraleX;
+    y7Off = mouseY-paraleY;
+}
+
+ 
+void mouseDragged() {
+  if(locked1) {
+    triangulo1X = mouseX-x1Off;
+    triangulo1Y = mouseY-y1Off;
+}
+ else if(locked2) {
+    triangulo2X = mouseX-x2Off;
+    triangulo2Y = mouseY-y2Off;
+}
+  else if(locked3){
+  triangulo3X = mouseX-x3Off;
+    triangulo3Y = mouseY-y3Off;
+  }
+    else if(locked4){
+  triangulo4X = mouseX-x4Off;
+    triangulo4Y = mouseY-y4Off;
+  }
+    else if(locked5){
+  triangulo5X = mouseX-x5Off;
+    triangulo5Y = mouseY-y5Off;
+  }
+   else if(locked6){
+  cuadradoX = mouseX-x6Off;
+   cuadradoY = mouseY-y6Off;
+  }
+   else if(locked7){
+  paraleX = mouseX-x7Off;
+    paraleY = mouseY-y7Off;
+  }
+
+}
+void mouseReleased(){
+  locked1=false;
+  locked2=false;
+  locked3=false;
+  locked4=false;
+  locked5=false;
+  locked6=false;
+  locked7=false;
+ 
+}
